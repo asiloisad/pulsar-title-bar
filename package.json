@@ -1,5 +1,5 @@
 {
-  "name": "fancy-bar",
+  "name": "title-bar",
   "version": "0.2.0",
   "description": "Theme-aware title bar",
   "main": "./lib/main.js",
