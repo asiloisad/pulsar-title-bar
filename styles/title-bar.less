@@ -1,0 +1,434 @@
+@import "ui-variables";
+
+// Windows 11 / Electron 30 native style
+@title-bar-height: 25px;
+@control-width: 46px;
+@control-height: @title-bar-height;
+@menu-height: 24px;
+
+.title-bar-replacer {
+    -webkit-app-region: drag;
+    app-region: drag;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: @title-bar-height;
+    color: @text-color;
+    background-color: @app-background-color;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
+    overflow: visible;
+    z-index: 900;
+    font-family: "Segoe UI", @font-family;
+    margin-top: 4px;
+    contain: layout style;
+    border-bottom: 1px solid @tool-panel-border-color;
+
+    // Top edge drag area for window dragging at screen edge
+    &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: -4px;
+        width: 100%;
+        height: 4px;
+        -webkit-app-region: drag;
+        app-region: drag;
+    }
+
+    .title-bar {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        height: @title-bar-height;
+        flex: 1;
+        order: 2;
+        z-index: 1;
+        background: transparent;
+        overflow: visible;
+
+        &.no-title-bar {
+            display: none;
+        }
+
+        .control-wrap {
+            display: inline-flex;
+            position: relative;
+            height: calc(100% + 4px);
+            margin-top: -4px;
+            margin-left: auto;
+            order: 10;
+
+            button {
+                -webkit-app-region: no-drag;
+                app-region: no-drag;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0;
+                padding-top: 4px;
+                border: none;
+                background: transparent;
+                width: @control-width;
+                height: calc(@control-height + 4px);
+                color: @text-color;
+                cursor: default;
+                transition: background-color 0.1s ease;
+
+                svg {
+                    display: block;
+                }
+
+                &:hover {
+                    background-color: fade(@text-color, 10%);
+                }
+
+                &:active {
+                    background-color: fade(@text-color, 6%);
+                }
+
+                &.disabled {
+                    color: @text-color-subtle;
+                    pointer-events: none;
+                }
+
+                &.btn-minimize {
+                    order: 1;
+                }
+
+                &.btn-maximize {
+                    order: 2;
+                }
+
+                &.btn-close {
+                    order: 3;
+                    &:hover {
+                        background-color: #c42b1c;
+                        color: #fff;
+                    }
+                    &:active {
+                        background-color: fade(#c42b1c, 80%);
+                        color: fade(#fff, 70%);
+                    }
+                }
+            }
+        }
+
+        .custom-title {
+            display: inline;
+            position: absolute;
+            height: @title-bar-height;
+            line-height: @title-bar-height;
+            font-family: "Segoe UI", @font-family;
+            font-size: 12px;
+            font-weight: 400;
+            color: @text-color;
+            left: 50%;
+            transform: translateX(-50%);
+            width: max-content;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .title-bar-tiles {
+            -webkit-app-region: no-drag;
+            app-region: no-drag;
+            display: flex;
+            align-items: center;
+            height: 100%;
+            gap: 4px;
+
+            &.tiles-left {
+                order: 1;
+                margin-left: 8px;
+            }
+
+            &.tiles-right {
+                order: 4;
+                margin-right: 8px;
+            }
+
+            > * {
+                display: inline-flex;
+                align-items: center;
+                height: 100%;
+            }
+        }
+    }
+
+    .app-menu {
+        -webkit-app-region: drag;
+        app-region: drag;
+        display: flex;
+        align-items: stretch;
+        position: relative;
+        width: auto;
+        height: 100%;
+        order: 1;
+        padding-left: 8px;
+        font-family: "Segoe UI", @font-family;
+        font-weight: 400;
+        font-size: 12px;
+        overflow: visible;
+        z-index: 2;
+
+        &.alt-down .menu-label u {
+            text-decoration: underline;
+        }
+
+        & .menu-label u {
+            text-decoration: none;
+        }
+
+        &.no-menu-bar {
+            display: flex;
+            .menu-label {
+                visibility: hidden;
+            }
+        }
+
+        .menu-label {
+            -webkit-app-region: no-drag;
+            app-region: no-drag;
+            position: relative;
+            display: inline-flex;
+            align-items: flex-end;
+            height: calc(100% + 4px);
+            margin-top: -4px;
+            padding: 0 8px 3px;
+            border-radius: 0 0 4px 4px;
+            color: @text-color;
+            transition: background-color 0.1s ease;
+
+            &.open, &.focused, &:hover {
+                background-color: fade(@text-color, 8%);
+            }
+
+            &:active {
+                background-color: fade(@text-color, 5%);
+            }
+
+            .menu-box {
+                display: block;
+                visibility: hidden;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                margin-top: 2px;
+                min-width: 200px;
+                background-color: @overlay-background-color;
+                border: 1px solid @overlay-border-color;
+                border-radius: 8px;
+                box-shadow: 0 4px 12px fade(#000, 12%);
+                padding: 4px 0;
+                z-index: 99999;
+                transform: translate(-4px, 0);
+                font-family: "Segoe UI", @font-family;
+                font-size: @font-size;
+                font-weight: 400;
+                contain: layout style;
+                will-change: visibility;
+
+                hr {
+                    height: 1px;
+                    border: none;
+                    background-color: @base-border-color;
+                    margin: 4px 12px;
+
+                    &:first-child,
+                    &:last-child {
+                        display: none;
+                    }
+                }
+
+                .menu-item {
+                    display: flex;
+                    position: relative;
+                    align-items: center;
+                    justify-content: space-between;
+                    height: 28px;
+                    padding: 0 12px;
+                    margin: 2px 4px;
+                    border-radius: 4px;
+                    color: @text-color;
+                    transition: background-color 0.05s ease;
+
+                    &.disabled {
+                        color: @text-color-subtle;
+                    }
+
+                    &.invisible {
+                        display: none;
+                    }
+
+                    .menu-item-keystroke {
+                        white-space: nowrap;
+                        margin-left: 24px;
+                        color: @text-color-subtle;
+                        font-size: @font-size - 1px;
+                    }
+
+                    &.open, &.selected {
+                        background-color: @background-color-highlight;
+                    }
+
+                    &:active:not(.disabled) {
+                        background-color: @background-color-selected;
+                    }
+
+                    .menu-item-submenu {
+                        position: absolute;
+                        top: -6px;
+                    }
+
+                    &.has-sub > .menu-item-keystroke:after {
+                        content: "\E76C";
+                        font-family: "Segoe Fluent Icons", "Segoe MDL2 Assets";
+                        font-size: 12px;
+                        margin-left: 8px;
+                    }
+
+                    .menu-item-name {
+                        white-space: nowrap;
+                    }
+
+                    &.bounce {
+                        animation: item-bounce 0.15s ease;
+                    }
+                }
+            }
+        }
+
+        span.open > .menu-box {
+            visibility: visible;
+        }
+
+        div.open > .menu-box {
+            display: initial;
+            visibility: visible;
+        }
+    }
+
+    // Reverse controls (left side)
+    &.reverse-controls {
+        .title-bar {
+            order: 0;
+            width: auto;
+            flex: 1;
+
+            .control-wrap {
+                flex-direction: row-reverse;
+                margin-left: 0;
+                margin-right: auto;
+            }
+        }
+    }
+}
+
+.title-bar-replacer .title-bar.no-title-bar ~ .app-menu.no-menu-bar {
+    display: none !important;
+}
+
+// Fix dock toggles being unclickable without a window frame
+.atom-dock-inner:not(.atom-dock-open) {
+    pointer-events: none;
+
+    &:not(.bottom) > .atom-dock-mask {
+        width: 8px !important;
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    > .atom-dock-toggle-button {
+        pointer-events: all;
+    }
+
+    > .atom-dock-toggle-button.left {
+        margin-left: -8px;
+    }
+
+    > .atom-dock-toggle-button.right {
+        margin-right: -8px;
+    }
+}
+
+@keyframes item-bounce {
+    0% { transform: scale(1); }
+    50% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+// Window Control Themes
+
+/** Yosemite / macOS style */
+.title-bar-replacer.control-theme-yosemite {
+    .title-bar {
+        .control-wrap {
+            flex-direction: row-reverse;
+            padding-left: 4px;
+            padding-right: 0;
+            margin-left: auto;
+            margin-right: 0;
+
+            button {
+                position: relative;
+                width: 20px;
+                background-color: transparent;
+                transition: all 0.15s ease;
+
+                svg {
+                    display: none;
+                }
+
+                &::before {
+                    content: '';
+                    position: absolute;
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    transition: background-color 0.15s ease;
+                }
+
+                &:hover, &:active {
+                    background-color: transparent;
+                }
+
+                &.btn-close {
+                    order: 3;
+                    &::before { background-color: #ff5f57; }
+                    &:hover::before { background-color: darken(#ff5f57, 10%); }
+                }
+
+                &.btn-minimize {
+                    order: 2;
+                    &::before { background-color: #febc2e; }
+                    &:hover::before { background-color: darken(#febc2e, 10%); }
+                }
+
+                &.btn-maximize {
+                    order: 1;
+                    &::before { background-color: #28c840; }
+                    &:hover::before { background-color: darken(#28c840, 10%); }
+                }
+            }
+        }
+    }
+
+    &.reverse-controls .title-bar .control-wrap {
+        flex-direction: row;
+        padding-left: 0;
+        padding-right: 4px;
+        margin-left: 0;
+        margin-right: auto;
+    }
+}
+
+body.is-blurred {
+    .title-bar-replacer.control-theme-yosemite .title-bar .control-wrap:not(:hover) button::before {
+        background-color: #ddd;
+    }
+}
