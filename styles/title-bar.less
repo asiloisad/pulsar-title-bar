@@ -39,6 +39,20 @@
     app-region: drag;
   }
 
+  > .custom-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: "Segoe UI", @font-family;
+    font-size: 12px;
+    font-weight: 400;
+    color: @text-color;
+    width: max-content;
+    z-index: -1;
+    pointer-events: none;
+  }
+
   .title-bar {
     position: relative;
     display: flex;
@@ -117,22 +131,6 @@
           }
         }
       }
-    }
-
-    .custom-title {
-      display: inline;
-      position: absolute;
-      height: @title-bar-height;
-      line-height: @title-bar-height;
-      font-family: "Segoe UI", @font-family;
-      font-size: 12px;
-      font-weight: 400;
-      color: @text-color;
-      left: 50%;
-      transform: translateX(-50%);
-      width: max-content;
-      z-index: -1;
-      pointer-events: none;
     }
 
     .title-bar-tiles {
