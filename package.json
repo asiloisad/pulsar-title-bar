@@ -1,6 +1,6 @@
 {
   "name": "fancy-bar",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Theme-aware title bar",
   "main": "./lib/main.js",
   "keywords": [
@@ -107,7 +107,12 @@
           "order": 5,
           "title": "Window Controls Theme",
           "type": "string",
-          "enum": ["Windows 10", "Arc", "Yosemite", "Legacy"],
+          "enum": [
+            "Windows 10",
+            "Arc",
+            "Yosemite",
+            "Legacy"
+          ],
           "default": "Windows 10"
         },
         "controlLocation": {
