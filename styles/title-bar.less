@@ -27,6 +27,23 @@
   contain: layout style;
   border-bottom: 1px solid @tool-panel-border-color;
 
+  .pulsar-icon {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 100%;
+    order: 0;
+    flex-shrink: 0;
+    margin-left: 8px;
+
+    svg {
+      display: block;
+    }
+  }
+
   // Top edge drag area for window dragging at screen edge
   &:before {
     content: "";
