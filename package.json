@@ -1,6 +1,6 @@
 {
   "name": "title-bar",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "Theme-aware title bar",
   "main": "./lib/main.js",
   "keywords": [
