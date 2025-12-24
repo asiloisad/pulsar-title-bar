@@ -247,6 +247,7 @@
     align-items: center;
     height: @title-bar-height;
     flex: 1;
+    min-width: 0;
     order: 2;
     z-index: 1;
     background: transparent;
@@ -264,57 +265,84 @@
       margin-top: -4px;
       margin-left: auto;
       order: 10;
+      max-width: 100%;
+      overflow: hidden;
 
-      button {
+      .control-tiles {
         -webkit-app-region: no-drag;
         app-region: no-drag;
         display: flex;
         align-items: center;
-        justify-content: center;
-        padding: 0;
-        padding-top: 4px;
-        border: none;
-        background: transparent;
-        width: @control-width;
         height: 100%;
-        color: @text-color;
-        cursor: default;
-        transition: background-color var(--title-bar-transition-normal) ease;
+        order: 0;
+        margin-right: 12px;
+        flex-shrink: 1;
+        min-width: 0;
+        overflow: hidden;
 
-        svg {
-          display: block;
+        &:empty {
+          display: none;
         }
+      }
 
-        &:hover {
-          background-color: fade(@text-color, 10%);
-        }
+      .window-buttons {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        order: 1;
+        flex-shrink: 0;
 
-        &:active {
-          background-color: fade(@text-color, 6%);
-        }
+        button {
+          -webkit-app-region: no-drag;
+          app-region: no-drag;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          padding-top: 4px;
+          border: none;
+          background: transparent;
+          width: @control-width;
+          height: 100%;
+          color: @text-color;
+          cursor: default;
+          transition: background-color var(--title-bar-transition-normal) ease;
 
-        &.disabled {
-          color: @text-color-subtle;
-          pointer-events: none;
-        }
-
-        &.btn-minimize {
-          order: 1;
-        }
-
-        &.btn-maximize {
-          order: 2;
-        }
-
-        &.btn-close {
-          order: 3;
-          &:hover {
-            background-color: var(--title-bar-close-hover-bg);
-            color: var(--title-bar-close-hover-color);
+          svg {
+            display: block;
           }
+
+          &:hover {
+            background-color: fade(@text-color, 10%);
+          }
+
           &:active {
-            background-color: fade(#c42b1c, 80%);
-            color: fade(#fff, 70%);
+            background-color: fade(@text-color, 6%);
+          }
+
+          &.disabled {
+            color: @text-color-subtle;
+            pointer-events: none;
+          }
+
+          &.btn-minimize {
+            order: 1;
+          }
+
+          &.btn-maximize {
+            order: 2;
+          }
+
+          &.btn-close {
+            order: 3;
+            &:hover {
+              background-color: var(--title-bar-close-hover-bg);
+              color: var(--title-bar-close-hover-color);
+            }
+            &:active {
+              background-color: fade(#c42b1c, 80%);
+              color: fade(#fff, 70%);
+            }
           }
         }
       }
@@ -536,57 +564,61 @@
       margin-left: 0;
       margin-right: auto;
 
-      button {
-        position: relative;
-        width: 20px;
-        background-color: transparent;
-        transition: all var(--title-bar-transition-slow) ease;
+      .window-buttons {
+        flex-direction: row-reverse;
 
-        svg {
-          display: none;
-        }
-
-        &::before {
-          content: "";
-          position: absolute;
-          width: 12px;
-          height: 12px;
-          border-radius: 50%;
-          transition: background-color var(--title-bar-transition-slow) ease;
-        }
-
-        &:hover,
-        &:active {
+        button {
+          position: relative;
+          width: 20px;
           background-color: transparent;
-        }
+          transition: all var(--title-bar-transition-slow) ease;
 
-        &.btn-close {
-          order: 3;
-          &::before {
-            background-color: var(--title-bar-macos-close);
+          svg {
+            display: none;
           }
-          &:hover::before {
-            background-color: color-mix(in srgb, var(--title-bar-macos-close) 90%, black);
-          }
-        }
 
-        &.btn-minimize {
-          order: 2;
           &::before {
-            background-color: var(--title-bar-macos-minimize);
+            content: "";
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            transition: background-color var(--title-bar-transition-slow) ease;
           }
-          &:hover::before {
-            background-color: color-mix(in srgb, var(--title-bar-macos-minimize) 90%, black);
-          }
-        }
 
-        &.btn-maximize {
-          order: 1;
-          &::before {
-            background-color: var(--title-bar-macos-maximize);
+          &:hover,
+          &:active {
+            background-color: transparent;
           }
-          &:hover::before {
-            background-color: color-mix(in srgb, var(--title-bar-macos-maximize) 90%, black);
+
+          &.btn-close {
+            order: 3;
+            &::before {
+              background-color: var(--title-bar-macos-close);
+            }
+            &:hover::before {
+              background-color: color-mix(in srgb, var(--title-bar-macos-close) 90%, black);
+            }
+          }
+
+          &.btn-minimize {
+            order: 2;
+            &::before {
+              background-color: var(--title-bar-macos-minimize);
+            }
+            &:hover::before {
+              background-color: color-mix(in srgb, var(--title-bar-macos-minimize) 90%, black);
+            }
+          }
+
+          &.btn-maximize {
+            order: 1;
+            &::before {
+              background-color: var(--title-bar-macos-maximize);
+            }
+            &:hover::before {
+              background-color: color-mix(in srgb, var(--title-bar-macos-maximize) 90%, black);
+            }
           }
         }
       }
@@ -598,7 +630,7 @@ body.is-blurred {
   .title-bar-replacer.control-theme-macos-tahoe
     .title-bar
     .control-wrap:not(:hover)
-    button::before {
+    .window-buttons button::before {
     background-color: var(--title-bar-macos-blurred);
   }
 }
@@ -645,46 +677,50 @@ body.is-blurred {
       padding-right: 4px;
       gap: 4px;
 
-      button {
-        position: relative;
-        width: 24px;
-        height: 24px;
-        padding: 0; // Reset base padding for proper centering
-        border-radius: 50%;
-        background-color: transparent;
-        transition: background-color var(--title-bar-transition-normal) ease;
+      .window-buttons {
+        gap: 4px;
 
-        svg {
-          width: 10px;
-          height: 10px;
-          stroke-width: 1.5;
-        }
+        button {
+          position: relative;
+          width: 24px;
+          height: 24px;
+          padding: 0; // Reset base padding for proper centering
+          border-radius: 50%;
+          background-color: transparent;
+          transition: background-color var(--title-bar-transition-normal) ease;
 
-        &:hover {
-          background-color: var(--title-bar-gnome-button-hover-bg);
-        }
+          svg {
+            width: 10px;
+            height: 10px;
+            stroke-width: 1.5;
+          }
 
-        &:active {
-          background-color: var(--title-bar-gnome-button-active-bg);
-        }
-
-        &.btn-close {
-          order: 3;
           &:hover {
-            background-color: var(--title-bar-gnome-close-hover-bg);
-            color: var(--title-bar-gnome-close-hover-color);
+            background-color: var(--title-bar-gnome-button-hover-bg);
           }
+
           &:active {
-            background-color: color-mix(in srgb, var(--title-bar-gnome-close-hover-bg) 80%, black);
+            background-color: var(--title-bar-gnome-button-active-bg);
           }
-        }
 
-        &.btn-minimize {
-          order: 1;
-        }
+          &.btn-close {
+            order: 3;
+            &:hover {
+              background-color: var(--title-bar-gnome-close-hover-bg);
+              color: var(--title-bar-gnome-close-hover-color);
+            }
+            &:active {
+              background-color: color-mix(in srgb, var(--title-bar-gnome-close-hover-bg) 80%, black);
+            }
+          }
 
-        &.btn-maximize {
-          order: 2;
+          &.btn-minimize {
+            order: 1;
+          }
+
+          &.btn-maximize {
+            order: 2;
+          }
         }
       }
     }

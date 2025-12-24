@@ -10,10 +10,76 @@ To install `title-bar` search for [title-bar](https://web.pulsar-edit.dev/packag
 
 - Custom title bar with window controls (minimize, maximize, close)
 - Integrated application menu bar
+- Multiple window control themes (Windows 11, macOS Tahoe, GNOME)
 - Automatic theme color detection from UI variables
 - Keyboard navigation with Alt key mnemonics
 - Auto-hide menu bar option
-- Tile service for adding custom elements to the title bar
+- Service API for adding custom elements to the title bar
+
+## Service API
+
+The `title-bar` package provides a service that allows other packages to add custom elements to the control area (left of window buttons).
+
+### Consuming the Service
+
+Add to your `package.json`:
+
+```json
+{
+  "consumedServices": {
+    "title-bar": {
+      "versions": {
+        "^1.0.0": "consumeTitleBar"
+      }
+    }
+  }
+}
+```
+
+Then implement the consumer in your package:
+
+```javascript
+module.exports = {
+  tile: null,
+
+  consumeTitleBar(titleBar) {
+    // Create your element
+    const element = document.createElement("div");
+    element.innerHTML = '<button>My Button</button>';
+
+    // Add to title bar (lower priority = appears first)
+    this.tile = titleBar.addItem({ item: element, priority: 100 });
+  },
+
+  deactivate() {
+    this.tile?.destroy();
+  }
+};
+```
+
+### API Methods
+
+#### `addItem({ item, priority })`
+
+Adds an element to the control tiles area.
+
+- `item` - DOM element to add
+- `priority` - Number determining order (lower = left, higher = right)
+- Returns a `Tile` object
+
+#### `getTiles()`
+
+Returns an array of all current tiles.
+
+### Tile Object
+
+- `getItem()` - Returns the DOM element
+- `getPriority()` - Returns the priority number
+- `destroy()` - Removes the tile from the title bar
+
+### Styling
+
+The service does not apply any styles to your elements. You are responsible for styling your own elements in your package's stylesheet. The container uses `display: flex` with `align-items: center`.
 
 ## Customization
 
@@ -72,11 +138,17 @@ You can customize the title bar appearance by overriding CSS custom properties i
   --title-bar-close-hover-bg: #c42b1c;
   --title-bar-close-hover-color: #fff;
 
-  // Yosemite/macOS traffic lights
-  --title-bar-yosemite-close: #ff5f57;
-  --title-bar-yosemite-minimize: #febc2e;
-  --title-bar-yosemite-maximize: #28c840;
-  --title-bar-yosemite-blurred: #ddd;
+  // macOS Tahoe traffic lights
+  --title-bar-macos-close: #ff5f57;
+  --title-bar-macos-minimize: #febc2e;
+  --title-bar-macos-maximize: #28c840;
+  --title-bar-macos-blurred: #ddd;
+
+  // GNOME/Adwaita
+  --title-bar-gnome-button-hover-bg: fade(@text-color, 10%);
+  --title-bar-gnome-button-active-bg: fade(@text-color, 15%);
+  --title-bar-gnome-close-hover-bg: #c01c28;
+  --title-bar-gnome-close-hover-color: #fff;
 }
 ```
 
