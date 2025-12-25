@@ -171,7 +171,7 @@
   }
 }
 
-.title-bar-replacer {
+.title-bar {
   -webkit-app-region: drag;
   app-region: drag;
   display: flex;
@@ -202,15 +202,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--title-bar-icon-size);
+    // Scale down if title-bar is smaller than icon size
+    width: min(var(--title-bar-icon-size), calc(var(--title-bar-height) - 8px));
     height: 100%;
     order: 0;
     flex-shrink: 0;
     margin-left: var(--title-bar-icon-margin);
-    transform: translateY(-3px);
 
     svg {
       display: block;
+      width: 100%;
+      height: auto;
     }
   }
 
@@ -240,141 +242,149 @@
     pointer-events: none;
   }
 
-  .title-bar {
-    position: relative;
+  .control-tiles {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    height: @title-bar-height;
-    flex: 1;
-    min-width: 0;
+    height: calc(100% + 4px);
+    margin-top: -4px;
+    margin-left: auto;
     order: 2;
-    z-index: 1;
-    background: transparent;
-    overflow: visible;
+    margin-right: 12px;
+    flex-shrink: 1;
+    min-width: 0;
+    overflow: hidden;
 
-    &.no-title-bar {
+    &:empty {
       display: none;
     }
 
-    .control-wrap {
-      display: inline-flex;
+    .inline-block {
+      display: flex;
       align-items: center;
-      position: relative;
-      height: calc(100% + 4px);
-      margin-top: -4px;
-      margin-left: auto;
-      order: 10;
-      max-width: 100%;
-      overflow: hidden;
+      justify-content: center;
+      width: 28px;
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      padding-top: 4px;
+      border: none;
+      background: transparent;
+      color: @text-color-subtle;
+      cursor: default;
+      transition: background-color var(--title-bar-transition-normal) ease,
+                  color var(--title-bar-transition-normal) ease;
 
-      .control-tiles {
-        -webkit-app-region: no-drag;
-        app-region: no-drag;
-        display: flex;
-        align-items: center;
-        height: 100%;
-        order: 0;
-        margin-right: 12px;
-        flex-shrink: 1;
-        min-width: 0;
-        overflow: hidden;
-
-        &:empty {
-          display: none;
-        }
+      svg {
+        display: block;
       }
 
-      .window-buttons {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        order: 1;
-        flex-shrink: 0;
+      &:hover {
+        background-color: fade(@text-color, 10%);
+        color: @text-color;
+      }
 
-        button {
-          -webkit-app-region: no-drag;
-          app-region: no-drag;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0;
-          padding-top: 4px;
-          border: none;
-          background: transparent;
-          width: @control-width;
-          height: 100%;
-          color: @text-color;
-          cursor: default;
-          transition: background-color var(--title-bar-transition-normal) ease;
-
-          svg {
-            display: block;
-          }
-
-          &:hover {
-            background-color: fade(@text-color, 10%);
-          }
-
-          &:active {
-            background-color: fade(@text-color, 6%);
-          }
-
-          &.disabled {
-            color: @text-color-subtle;
-            pointer-events: none;
-          }
-
-          &.btn-minimize {
-            order: 1;
-          }
-
-          &.btn-maximize {
-            order: 2;
-          }
-
-          &.btn-close {
-            order: 3;
-            &:hover {
-              background-color: var(--title-bar-close-hover-bg);
-              color: var(--title-bar-close-hover-color);
-            }
-            &:active {
-              background-color: fade(#c42b1c, 80%);
-              color: fade(#fff, 70%);
-            }
-          }
-        }
+      &:active {
+        background-color: fade(@text-color, 6%);
       }
     }
+  }
 
-    .title-bar-tiles {
+  // When control-tiles is empty, window-buttons needs the auto margin
+  .control-tiles:empty + .window-buttons {
+    margin-left: auto;
+  }
+
+  .window-buttons {
+    display: flex;
+    align-items: center;
+    height: calc(100% + 4px);
+    margin-top: -4px;
+    order: 3;
+    flex-shrink: 0;
+
+    button {
       -webkit-app-region: no-drag;
       app-region: no-drag;
       display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 0;
+      padding-top: 4px;
+      border: none;
+      background: transparent;
+      width: @control-width;
       height: 100%;
-      gap: 4px;
+      color: @text-color;
+      cursor: default;
+      transition: background-color var(--title-bar-transition-normal) ease;
 
-      &:empty {
-        display: none;
+      svg {
+        display: block;
       }
 
-      &.tiles-left {
+      &:hover {
+        background-color: fade(@text-color, 10%);
+      }
+
+      &:active {
+        background-color: fade(@text-color, 6%);
+      }
+
+      &.disabled {
+        color: @text-color-subtle;
+        pointer-events: none;
+      }
+
+      &.btn-minimize {
         order: 1;
-        margin-left: 8px;
       }
 
-      &.tiles-right {
-        order: 4;
-        margin-right: 8px;
+      &.btn-maximize {
+        order: 2;
       }
 
-      > * {
-        display: inline-flex;
-        align-items: center;
-        height: 100%;
+      &.btn-close {
+        order: 3;
+        &:hover {
+          background-color: var(--title-bar-close-hover-bg);
+          color: var(--title-bar-close-hover-color);
+        }
+        &:active {
+          background-color: fade(#c42b1c, 80%);
+          color: fade(#fff, 70%);
+        }
       }
+    }
+  }
+
+  .title-bar-tiles {
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    // gap: 4px;
+
+    &:empty {
+      display: none;
+    }
+
+    &.tiles-left {
+      order: 1;
+      margin-left: 8px;
+    }
+
+    &.tiles-right {
+      order: 4;
+      margin-right: 8px;
+    }
+
+    > * {
+      display: inline-flex;
+      align-items: center;
+      height: 100%;
     }
   }
 
@@ -499,23 +509,23 @@
 
   // Reverse controls (left side)
   &.reverse-controls {
-    .title-bar {
-      order: 0;
-      width: auto;
-      flex: 1;
+    .control-tiles {
+      order: 1;
+      margin-left: 12px;
+      margin-right: auto;
+    }
 
-      .control-wrap {
-        flex-direction: row-reverse;
-        margin-left: 0;
-        margin-right: auto;
-      }
+    .control-tiles:empty + .window-buttons {
+      margin-right: auto;
+    }
+
+    .window-buttons {
+      margin-left: 0;
+      order: 0;
     }
   }
 }
 
-.title-bar-replacer .title-bar.no-title-bar ~ .app-menu.no-menu-bar {
-  display: none !important;
-}
 
 // Fix dock toggles being unclickable without a window frame
 .atom-dock-inner:not(.atom-dock-open) {
@@ -555,71 +565,74 @@
 // Window Control Themes
 
 /** macOS Tahoe style */
-.title-bar-replacer.control-theme-macos-tahoe {
-  .title-bar {
-    .control-wrap {
-      flex-direction: row-reverse;
-      padding-left: 4px;
-      padding-right: 0;
-      margin-left: 0;
-      margin-right: auto;
+.title-bar.theme-macos-tahoe {
+  .control-tiles {
+    order: 1;
+    margin-left: 12px;
+    margin-right: auto;
+  }
 
-      .window-buttons {
-        flex-direction: row-reverse;
+  .control-tiles:empty + .window-buttons {
+    margin-right: auto;
+  }
 
-        button {
-          position: relative;
-          width: 20px;
-          background-color: transparent;
-          transition: all var(--title-bar-transition-slow) ease;
+  .window-buttons {
+    flex-direction: row-reverse;
+    padding-left: 4px;
+    margin-left: 0;
+    order: 0;
 
-          svg {
-            display: none;
-          }
+    button {
+      position: relative;
+      width: 20px;
+      background-color: transparent;
+      transition: all var(--title-bar-transition-slow) ease;
 
-          &::before {
-            content: "";
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            transition: background-color var(--title-bar-transition-slow) ease;
-          }
+      svg {
+        display: none;
+      }
 
-          &:hover,
-          &:active {
-            background-color: transparent;
-          }
+      &::before {
+        content: "";
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transition: background-color var(--title-bar-transition-slow) ease;
+      }
 
-          &.btn-close {
-            order: 3;
-            &::before {
-              background-color: var(--title-bar-macos-close);
-            }
-            &:hover::before {
-              background-color: color-mix(in srgb, var(--title-bar-macos-close) 90%, black);
-            }
-          }
+      &:hover,
+      &:active {
+        background-color: transparent;
+      }
 
-          &.btn-minimize {
-            order: 2;
-            &::before {
-              background-color: var(--title-bar-macos-minimize);
-            }
-            &:hover::before {
-              background-color: color-mix(in srgb, var(--title-bar-macos-minimize) 90%, black);
-            }
-          }
+      &.btn-close {
+        order: 3;
+        &::before {
+          background-color: var(--title-bar-macos-close);
+        }
+        &:hover::before {
+          background-color: color-mix(in srgb, var(--title-bar-macos-close) 90%, black);
+        }
+      }
 
-          &.btn-maximize {
-            order: 1;
-            &::before {
-              background-color: var(--title-bar-macos-maximize);
-            }
-            &:hover::before {
-              background-color: color-mix(in srgb, var(--title-bar-macos-maximize) 90%, black);
-            }
-          }
+      &.btn-minimize {
+        order: 2;
+        &::before {
+          background-color: var(--title-bar-macos-minimize);
+        }
+        &:hover::before {
+          background-color: color-mix(in srgb, var(--title-bar-macos-minimize) 90%, black);
+        }
+      }
+
+      &.btn-maximize {
+        order: 1;
+        &::before {
+          background-color: var(--title-bar-macos-maximize);
+        }
+        &:hover::before {
+          background-color: color-mix(in srgb, var(--title-bar-macos-maximize) 90%, black);
         }
       }
     }
@@ -627,16 +640,14 @@
 }
 
 body.is-blurred {
-  .title-bar-replacer.control-theme-macos-tahoe
-    .title-bar
-    .control-wrap:not(:hover)
-    .window-buttons button::before {
+  .title-bar.theme-macos-tahoe
+    .window-buttons:not(:hover) button::before {
     background-color: var(--title-bar-macos-blurred);
   }
 }
 
 // macOS: Move logo to right side
-.title-bar-replacer.control-theme-macos-tahoe {
+.title-bar.theme-macos-tahoe {
   .pulsar-icon {
     order: 10;
     margin-left: 0;
@@ -664,64 +675,54 @@ body.is-blurred {
       &:nth-last-child(8) { transition-delay: @label-delay * 7; }
     }
   }
-
-  .title-bar {
-    order: 0;
-  }
 }
 
 /** GNOME/Adwaita style */
-.title-bar-replacer.control-theme-gnome {
-  .title-bar {
-    .control-wrap {
-      padding-right: 4px;
-      gap: 4px;
+.title-bar.theme-gnome {
+  .window-buttons {
+    padding-right: 4px;
+    gap: 4px;
 
-      .window-buttons {
-        gap: 4px;
+    button {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      padding: 0; // Reset base padding for proper centering
+      border-radius: 50%;
+      background-color: transparent;
+      transition: background-color var(--title-bar-transition-normal) ease;
 
-        button {
-          position: relative;
-          width: 24px;
-          height: 24px;
-          padding: 0; // Reset base padding for proper centering
-          border-radius: 50%;
-          background-color: transparent;
-          transition: background-color var(--title-bar-transition-normal) ease;
+      svg {
+        width: 10px;
+        height: 10px;
+        stroke-width: 1.5;
+      }
 
-          svg {
-            width: 10px;
-            height: 10px;
-            stroke-width: 1.5;
-          }
+      &:hover {
+        background-color: var(--title-bar-gnome-button-hover-bg);
+      }
 
-          &:hover {
-            background-color: var(--title-bar-gnome-button-hover-bg);
-          }
+      &:active {
+        background-color: var(--title-bar-gnome-button-active-bg);
+      }
 
-          &:active {
-            background-color: var(--title-bar-gnome-button-active-bg);
-          }
-
-          &.btn-close {
-            order: 3;
-            &:hover {
-              background-color: var(--title-bar-gnome-close-hover-bg);
-              color: var(--title-bar-gnome-close-hover-color);
-            }
-            &:active {
-              background-color: color-mix(in srgb, var(--title-bar-gnome-close-hover-bg) 80%, black);
-            }
-          }
-
-          &.btn-minimize {
-            order: 1;
-          }
-
-          &.btn-maximize {
-            order: 2;
-          }
+      &.btn-close {
+        order: 3;
+        &:hover {
+          background-color: var(--title-bar-gnome-close-hover-bg);
+          color: var(--title-bar-gnome-close-hover-color);
         }
+        &:active {
+          background-color: color-mix(in srgb, var(--title-bar-gnome-close-hover-bg) 80%, black);
+        }
+      }
+
+      &.btn-minimize {
+        order: 1;
+      }
+
+      &.btn-maximize {
+        order: 2;
       }
     }
   }
