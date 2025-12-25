@@ -264,11 +264,9 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 28px;
       height: 100%;
       margin: 0;
       padding: 0;
-      padding-top: 4px;
       border: none;
       background: transparent;
       color: @text-color-subtle;
@@ -416,6 +414,8 @@
     &.no-menu-bar {
       display: flex;
       .menu-label {
+        -webkit-app-region: drag;
+        app-region: drag;
         opacity: 0;
         transform: translateX(-12px);
         pointer-events: none;
