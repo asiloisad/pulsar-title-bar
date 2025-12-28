@@ -1,26 +1,33 @@
 # title-bar
 
-Theme-aware custom title bar for Pulsar.
+Theme-aware custom title bar with integrated menu.
+
+Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer).
+
+## Features
+
+- **Custom title bar**: Window controls (minimize, maximize, close) with integrated menu bar.
+- **Window control themes**: Windows 11, macOS Tahoe, and GNOME styles.
+- **Automatic theming**: Detects colors from UI theme variables.
+- **Keyboard navigation**: Alt key mnemonics for menu access.
+- **Auto-hide menu**: Optional menu bar auto-hide.
+- **Service**: Allows other packages to add custom elements to the title bar.
 
 ## Installation
 
 To install `title-bar` search for [title-bar](https://web.pulsar-edit.dev/packages/title-bar) in the Install pane of the Pulsar settings or run `ppm install title-bar`. Alternatively, you can run `ppm install asiloisad/pulsar-title-bar` to install a package directly from the GitHub repository.
 
-## Features
+## Commands
 
-- Custom title bar with window controls (minimize, maximize, close)
-- Integrated application menu bar
-- Multiple window control themes (Windows 11, macOS Tahoe, GNOME)
-- Automatic theme color detection from UI variables
-- Keyboard navigation with Alt key mnemonics
-- Auto-hide menu bar option
-- Service API for adding custom elements to the title bar
+Commands available in `atom-workspace`:
 
-## Service API
+- `title-bar:toggle`: toggle title bar visibility.
 
-The `title-bar` package provides a service that allows other packages to add custom elements to the control area (left of window buttons).
+## Service
 
-### Consuming the Service
+The package provides a `title-bar` service for other packages to add custom elements to the control area (left of window buttons).
+
+### Consuming the service
 
 Add to your `package.json`:
 
@@ -71,7 +78,7 @@ Adds an element to the control tiles area.
 
 Returns an array of all current tiles.
 
-### Tile Object
+### Tile object
 
 - `getItem()` - Returns the DOM element
 - `getPriority()` - Returns the priority number
@@ -83,9 +90,9 @@ The service does not apply any styles to your elements. You are responsible for 
 
 ## Customization
 
-You can customize the title bar appearance by overriding CSS custom properties in your `styles.less` file (Edit > Stylesheet or `~/.pulsar/styles.less`).
+The style can be adjusted according to user preferences in the `styles.less` file:
 
-### Layout Variables
+- e.g. layout variables:
 
 ```less
 :root {
@@ -96,7 +103,7 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-### Menu Variables
+- e.g. menu variables:
 
 ```less
 :root {
@@ -112,7 +119,7 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-### Title Variables
+- e.g. title variables:
 
 ```less
 :root {
@@ -120,7 +127,7 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-### Transition Variables
+- e.g. transition variables:
 
 ```less
 :root {
@@ -130,7 +137,7 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-### Theme Colors
+- e.g. theme colors:
 
 ```less
 :root {
@@ -152,7 +159,7 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-### Example: Larger Title Bar
+- e.g. larger title bar:
 
 ```less
 :root {
@@ -162,10 +169,6 @@ You can customize the title bar appearance by overriding CSS custom properties i
 }
 ```
 
-# Contributing
+## Contributing
 
 Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub — any feedback's welcome!
-
-# Credits
-
-Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer).
