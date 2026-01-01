@@ -131,8 +131,7 @@
       font-size: @font-size - 1px;
     }
 
-    &.open,
-    &.selected {
+    &:hover:not(.disabled) {
       background-color: @background-color-highlight;
     }
 
@@ -168,6 +167,11 @@
 
   .menu-item.open > .menu-item-submenu {
     visibility: visible;
+  }
+
+  // Show .open highlight only when menu-box is not being hovered
+  &:not(:hover) .menu-item.open {
+    background-color: @background-color-highlight;
   }
 }
 
