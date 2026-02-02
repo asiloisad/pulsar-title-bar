@@ -2,6 +2,8 @@
 
 Theme-aware custom title bar with integrated menu.
 
+![view](https://github.com/asiloisad/pulsar-title-bar/blob/master/assets/view.png?raw=true)
+
 Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer).
 
 ## Features
