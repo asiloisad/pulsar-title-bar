@@ -1,0 +1,13 @@
+'menu': [
+  {
+    label: 'Packages'
+    submenu: [
+      {
+        label: 'Title Bar'
+        submenu: [
+          { label: 'Toggle', command: 'title-bar:toggle' }
+        ]
+      }
+    ]
+  }
+]
