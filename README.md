@@ -25,13 +25,11 @@ Commands available in `atom-workspace`:
 
 - `title-bar:toggle`: toggle title bar visibility.
 
-## Service
+## Provided Service `title-bar`
 
-The package provides a `title-bar` service for other packages to add custom elements to the control area (left of window buttons).
+Allows other packages to add custom elements to the control area (left of window buttons).
 
-### Consuming the service
-
-Add to your `package.json`:
+In your `package.json`:
 
 ```json
 {
@@ -45,7 +43,7 @@ Add to your `package.json`:
 }
 ```
 
-Then implement the consumer in your package:
+In your main module:
 
 ```javascript
 module.exports = {
@@ -66,27 +64,8 @@ module.exports = {
 };
 ```
 
-### API Methods
-
-#### `addItem({ item, priority })`
-
-Adds an element to the control tiles area.
-
-- `item` - DOM element to add
-- `priority` - Number determining order (lower = left, higher = right)
-- Returns a `Tile` object
-
-#### `getTiles()`
-
-Returns an array of all current tiles.
-
-### Tile object
-
-- `getItem()` - Returns the DOM element
-- `getPriority()` - Returns the priority number
-- `destroy()` - Removes the tile from the title bar
-
-### Styling
+- `addItem({ item, priority })`: adds an element to the control tiles area. `item` is a DOM element, `priority` determines order (lower = left, higher = right). Returns a `Tile` object with `getItem()`, `getPriority()`, and `destroy()` methods.
+- `getTiles()`: returns an array of all current tiles.
 
 The service does not apply any styles to your elements. You are responsible for styling your own elements in your package's stylesheet. The container uses `display: flex` with `align-items: center`.
 
