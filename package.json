@@ -1,6 +1,6 @@
 {
   "name": "title-bar",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Theme-aware custom title bar with integrated menu",
   "main": "./lib/main.js",
   "keywords": [
