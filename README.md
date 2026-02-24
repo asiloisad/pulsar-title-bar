@@ -4,7 +4,7 @@ Theme-aware custom title bar with integrated menu.
 
 ![view](https://github.com/asiloisad/pulsar-title-bar/blob/master/assets/view.png?raw=true)
 
-Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer).
+Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer). Screenshot uses [one-day-ui](https://github.com/asiloisad/pulsar-one-day-ui) and [one-day-syntax](https://github.com/asiloisad/pulsar-one-day-syntax) themes.
 
 ## Features
 
