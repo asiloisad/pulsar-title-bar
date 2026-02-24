@@ -150,6 +150,18 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 }
 ```
 
+## Note for `one-light-ui` and `one-dark-ui`
+
+This built-in theme has a CSS class that may not produce the best appearance for the title-bar. To restore the default package style, add the following code to your `styles.less` file:
+
+```less
+@import 'ui-variables';
+.title-bar {
+  height: var(--title-bar-height);
+  border-bottom: 1px solid @tool-panel-border-color;
+}
+```
+
 ## Contributing
 
 Got ideas to make this package better, found a bug, or want to help add new features? Just drop your thoughts on GitHub — any feedback's welcome!
