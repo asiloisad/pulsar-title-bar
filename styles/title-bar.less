@@ -18,16 +18,16 @@
   --title-bar-icon-margin: 8px;
 
   // Menu
-  --title-bar-menu-font-size: 12px;
+  --title-bar-menu-font-size: 13px;
   --title-bar-menu-item-height: 28px;
-  --title-bar-menu-item-padding: 12px;
-  --title-bar-menu-item-margin: 4px;
+  --title-bar-menu-item-padding: 14px;
+  --title-bar-menu-item-margin: 3px;
   --title-bar-menu-item-radius: 4px;
-  --title-bar-menu-box-radius: 8px;
+  --title-bar-menu-box-radius: 6px;
   --title-bar-menu-box-min-width: 200px;
-  --title-bar-menu-box-shadow: 0 4px 12px fade(#000, 12%);
+  --title-bar-menu-box-shadow: 0 2px 8px fade(#000, 16%);
   --title-bar-menu-label-padding: 8px;
-  --title-bar-menu-label-radius: 4px;
+  --title-bar-menu-label-radius: 0px;
 
   // Title
   --title-bar-title-font-size: 12px;
@@ -69,6 +69,11 @@
 .menu-scrollable() {
   overflow-y: auto;
   overflow-x: hidden;
+  direction: rtl;
+
+  > * {
+    direction: ltr;
+  }
 }
 
 // ============================================================================
@@ -82,9 +87,9 @@
   border: 1px solid @overlay-border-color;
   border-radius: var(--title-bar-menu-box-radius);
   box-shadow: var(--title-bar-menu-box-shadow);
-  padding: 4px 0;
+  padding: 6px 0;
   font-family: "Segoe UI", @font-family;
-  font-size: @font-size;
+  font-size: var(--title-bar-menu-font-size);
   font-weight: 400;
   contain: layout style;
   -webkit-user-select: none;
@@ -111,7 +116,7 @@
     justify-content: space-between;
     height: var(--title-bar-menu-item-height);
     padding: 0 var(--title-bar-menu-item-padding);
-    margin: 2px var(--title-bar-menu-item-margin);
+    margin: 0 var(--title-bar-menu-item-margin);
     border-radius: var(--title-bar-menu-item-radius);
     color: @text-color;
     transition: background-color var(--title-bar-transition-fast) ease;
@@ -128,10 +133,11 @@
       white-space: nowrap;
       margin-left: 24px;
       color: @text-color-subtle;
-      font-size: @font-size - 1px;
+      font-size: var(--title-bar-menu-font-size);
     }
 
-    &:hover:not(.disabled) {
+    &:hover:not(.disabled),
+    &.selected:not(.disabled) {
       background-color: @background-color-highlight;
     }
 
@@ -456,16 +462,14 @@
       &:nth-child(8) { transition-delay: @label-delay * 7; }
       color: @text-color;
 
-      // Rounded highlight area (visual only)
+      // Highlight area (visual only)
       &::before {
         content: "";
         position: absolute;
-        top: 50%;
+        top: 0;
         left: 0;
         right: 0;
-        height: 22px;
-        margin-top: 2px;
-        transform: translateY(-50%);
+        bottom: 0;
         border-radius: var(--title-bar-menu-label-radius);
         background-color: transparent;
         transition: background-color var(--title-bar-transition-normal) ease;
