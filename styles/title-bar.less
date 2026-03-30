@@ -18,7 +18,7 @@
   --title-bar-icon-margin: 8px;
 
   // Menu
-  --title-bar-menu-font-size: 13px;
+  --title-bar-menu-font-size: @font-size;
   --title-bar-menu-item-height: 28px;
   --title-bar-menu-item-padding: 14px;
   --title-bar-menu-item-margin: 3px;
@@ -30,7 +30,7 @@
   --title-bar-menu-label-radius: 0px;
 
   // Title
-  --title-bar-title-font-size: 12px;
+  --title-bar-title-font-size: @font-size;
 
   // Transitions
   --title-bar-transition-fast: 0.05s;
@@ -152,7 +152,7 @@
     &.has-sub > .menu-item-keystroke:after {
       content: "\E76C";
       font-family: "Segoe Fluent Icons", "Segoe MDL2 Assets";
-      font-size: 12px;
+      font-size: var(--title-bar-menu-font-size);
       margin-left: 8px;
     }
 
