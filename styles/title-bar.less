@@ -150,10 +150,17 @@
     }
 
     &.has-sub > .menu-item-keystroke:after {
-      content: "\E76C";
-      font-family: "Segoe Fluent Icons", "Segoe MDL2 Assets";
-      font-size: var(--title-bar-menu-font-size);
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 0;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      border-left: 5px solid currentColor;
       margin-left: 8px;
+      margin-right: -4px;
+      vertical-align: middle;
+      opacity: 0.7;
     }
 
     .menu-item-name {
