@@ -6,6 +6,7 @@
         label: 'Title Bar'
         submenu: [
           { label: 'Toggle', command: 'title-bar:toggle' }
+          { label: 'Focus Menu', command: 'title-bar:focus-menu' }
         ]
       }
     ]

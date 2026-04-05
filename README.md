@@ -9,7 +9,7 @@ Fork of [title-bar-replacer](https://github.com/sindrets/atom-title-bar-replacer
 ## Features
 
 - **Custom title bar**: Window controls (minimize, maximize, close) with integrated menu bar.
-- **Window control themes**: Windows 11, macOS Tahoe, and GNOME styles.
+- **Window control themes**: Windows 11, macOS Tahoe, and GNOME styles, with a Default option that picks the theme for the current platform.
 - **Automatic theming**: Detects colors from UI theme variables.
 - **Keyboard navigation**: Alt key mnemonics for menu access.
 - **Auto-hide menu**: Optional menu bar auto-hide.
@@ -24,6 +24,7 @@ To install `title-bar` search for [title-bar](https://web.pulsar-edit.dev/packag
 Commands available in `atom-workspace`:
 
 - `title-bar:toggle`: toggle title bar visibility.
+- `title-bar:focus-menu`: focus the first menu label for keyboard navigation. Useful when `Alt Gives Focus` is disabled.
 
 ## Provided Service `title-bar`
 
