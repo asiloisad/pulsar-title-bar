@@ -24,11 +24,12 @@
       "title": "Window Controls Theme",
       "type": "string",
       "enum": [
+        "Default",
         "Windows 11",
         "macOS Tahoe",
         "GNOME"
       ],
-      "default": "Windows 11"
+      "default": "Default"
     },
     "logoStyle": {
       "order": 2,
