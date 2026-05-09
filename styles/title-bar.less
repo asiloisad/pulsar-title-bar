@@ -1,5 +1,6 @@
 // Fallback if theme does not support scrollbars-visible-always
-.scrollbars-visible-always() {}
+.scrollbars-visible-always() {
+}
 
 @import "ui-variables";
 @import "atom";
@@ -264,7 +265,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
     font-size: var(--title-bar-title-font-size);
     font-weight: 400;
     color: @text-color;
@@ -303,8 +309,9 @@
       background: transparent;
       color: @text-color-subtle;
       cursor: default;
-      transition: background-color var(--title-bar-transition-normal) ease,
-                  color var(--title-bar-transition-normal) ease;
+      transition:
+        background-color var(--title-bar-transition-normal) ease,
+        color var(--title-bar-transition-normal) ease;
 
       svg {
         display: block;
@@ -467,20 +474,38 @@
       padding-top: 4px;
       opacity: 1;
       transform: translateX(0);
-      transition: opacity var(--title-bar-transition-slow) ease, transform var(--title-bar-transition-slow) ease;
+      transition:
+        opacity var(--title-bar-transition-slow) ease,
+        transform var(--title-bar-transition-slow) ease;
       // Apply scrollbar styles to descendant .menu-box elements
       .scrollbars-visible-always();
 
       // Stagger animation for each menu label
       @label-delay: 0.02s;
-      &:nth-child(1) { transition-delay: @label-delay * 0; }
-      &:nth-child(2) { transition-delay: @label-delay * 1; }
-      &:nth-child(3) { transition-delay: @label-delay * 2; }
-      &:nth-child(4) { transition-delay: @label-delay * 3; }
-      &:nth-child(5) { transition-delay: @label-delay * 4; }
-      &:nth-child(6) { transition-delay: @label-delay * 5; }
-      &:nth-child(7) { transition-delay: @label-delay * 6; }
-      &:nth-child(8) { transition-delay: @label-delay * 7; }
+      &:nth-child(1) {
+        transition-delay: @label-delay * 0;
+      }
+      &:nth-child(2) {
+        transition-delay: @label-delay * 1;
+      }
+      &:nth-child(3) {
+        transition-delay: @label-delay * 2;
+      }
+      &:nth-child(4) {
+        transition-delay: @label-delay * 3;
+      }
+      &:nth-child(5) {
+        transition-delay: @label-delay * 4;
+      }
+      &:nth-child(6) {
+        transition-delay: @label-delay * 5;
+      }
+      &:nth-child(7) {
+        transition-delay: @label-delay * 6;
+      }
+      &:nth-child(8) {
+        transition-delay: @label-delay * 7;
+      }
       color: @text-color;
 
       // Highlight area (visual only)
@@ -557,7 +582,6 @@
     }
   }
 }
-
 
 // Fix dock toggles being unclickable without a window frame
 .atom-dock-inner:not(.atom-dock-open) {
@@ -673,8 +697,7 @@
 }
 
 body.is-blurred {
-  .title-bar.theme-macos-tahoe
-    .window-buttons:not(:hover) button::before {
+  .title-bar.theme-macos-tahoe .window-buttons:not(:hover) button::before {
     background-color: var(--title-bar-macos-blurred);
   }
 }
@@ -698,14 +721,30 @@ body.is-blurred {
     // Reverse stagger animation order (rightmost appears first)
     @label-delay: 0.02s;
     .menu-label {
-      &:nth-last-child(1) { transition-delay: @label-delay * 0; }
-      &:nth-last-child(2) { transition-delay: @label-delay * 1; }
-      &:nth-last-child(3) { transition-delay: @label-delay * 2; }
-      &:nth-last-child(4) { transition-delay: @label-delay * 3; }
-      &:nth-last-child(5) { transition-delay: @label-delay * 4; }
-      &:nth-last-child(6) { transition-delay: @label-delay * 5; }
-      &:nth-last-child(7) { transition-delay: @label-delay * 6; }
-      &:nth-last-child(8) { transition-delay: @label-delay * 7; }
+      &:nth-last-child(1) {
+        transition-delay: @label-delay * 0;
+      }
+      &:nth-last-child(2) {
+        transition-delay: @label-delay * 1;
+      }
+      &:nth-last-child(3) {
+        transition-delay: @label-delay * 2;
+      }
+      &:nth-last-child(4) {
+        transition-delay: @label-delay * 3;
+      }
+      &:nth-last-child(5) {
+        transition-delay: @label-delay * 4;
+      }
+      &:nth-last-child(6) {
+        transition-delay: @label-delay * 5;
+      }
+      &:nth-last-child(7) {
+        transition-delay: @label-delay * 6;
+      }
+      &:nth-last-child(8) {
+        transition-delay: @label-delay * 7;
+      }
     }
   }
 }

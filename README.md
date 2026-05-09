@@ -53,7 +53,7 @@ module.exports = {
   consumeTitleBar(titleBar) {
     // Create your element
     const element = document.createElement("div");
-    element.innerHTML = '<button>My Button</button>';
+    element.innerHTML = "<button>My Button</button>";
 
     // Add to title bar (lower priority = appears first)
     this.tile = titleBar.addItem({ item: element, priority: 100 });
@@ -61,7 +61,7 @@ module.exports = {
 
   deactivate() {
     this.tile?.destroy();
-  }
+  },
 };
 ```
 
@@ -78,10 +78,10 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 
 ```less
 :root {
-  --title-bar-height: 32px;           // Title bar height
-  --title-bar-control-width: 46px;    // Window control button width
-  --title-bar-icon-size: 24px;        // Pulsar icon size
-  --title-bar-icon-margin: 8px;       // Pulsar icon left margin
+  --title-bar-height: 32px; // Title bar height
+  --title-bar-control-width: 46px; // Window control button width
+  --title-bar-icon-size: 24px; // Pulsar icon size
+  --title-bar-icon-margin: 8px; // Pulsar icon left margin
 }
 ```
 
@@ -89,15 +89,15 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 
 ```less
 :root {
-  --title-bar-menu-font-size: 12px;       // Menu label font size
-  --title-bar-menu-item-height: 28px;     // Menu item height
-  --title-bar-menu-item-padding: 12px;    // Menu item horizontal padding
-  --title-bar-menu-item-margin: 4px;      // Menu item margin
-  --title-bar-menu-item-radius: 4px;      // Menu item border radius
-  --title-bar-menu-box-radius: 8px;       // Menu dropdown border radius
-  --title-bar-menu-box-min-width: 200px;  // Menu dropdown minimum width
-  --title-bar-menu-label-padding: 8px;    // Menu label padding
-  --title-bar-menu-label-radius: 4px;     // Menu label hover border radius
+  --title-bar-menu-font-size: 12px; // Menu label font size
+  --title-bar-menu-item-height: 28px; // Menu item height
+  --title-bar-menu-item-padding: 12px; // Menu item horizontal padding
+  --title-bar-menu-item-margin: 4px; // Menu item margin
+  --title-bar-menu-item-radius: 4px; // Menu item border radius
+  --title-bar-menu-box-radius: 8px; // Menu dropdown border radius
+  --title-bar-menu-box-min-width: 200px; // Menu dropdown minimum width
+  --title-bar-menu-label-padding: 8px; // Menu label padding
+  --title-bar-menu-label-radius: 4px; // Menu label hover border radius
 }
 ```
 
@@ -105,7 +105,7 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 
 ```less
 :root {
-  --title-bar-title-font-size: 12px;  // Window title font size
+  --title-bar-title-font-size: 12px; // Window title font size
 }
 ```
 
@@ -113,9 +113,9 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 
 ```less
 :root {
-  --title-bar-transition-fast: 0.05s;    // Fast transitions (menu items)
-  --title-bar-transition-normal: 0.1s;   // Normal transitions (buttons)
-  --title-bar-transition-slow: 0.15s;    // Slow transitions (menu labels)
+  --title-bar-transition-fast: 0.05s; // Fast transitions (menu items)
+  --title-bar-transition-normal: 0.1s; // Normal transitions (buttons)
+  --title-bar-transition-slow: 0.15s; // Slow transitions (menu labels)
 }
 ```
 
@@ -158,7 +158,7 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 This built-in theme has a CSS class that may not produce the best appearance for the title-bar. To restore the default package style, add the following code to your `styles.less` file:
 
 ```less
-@import 'ui-variables';
+@import "ui-variables";
 .title-bar {
   height: var(--title-bar-height);
   border-bottom: 1px solid @tool-panel-border-color;
