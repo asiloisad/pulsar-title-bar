@@ -26,50 +26,6 @@ Commands available in `atom-workspace`:
 - `title-bar:toggle`: toggle title bar visibility.
 - `title-bar:focus-menu`: focus the first menu label for keyboard navigation. Useful when `Alt Gives Focus` is disabled.
 
-## Provided Service `title-bar`
-
-Allows other packages to add custom elements to the control area (left of window buttons).
-
-In your `package.json`:
-
-```json
-{
-  "consumedServices": {
-    "title-bar": {
-      "versions": {
-        "^1.0.0": "consumeTitleBar"
-      }
-    }
-  }
-}
-```
-
-In your main module:
-
-```javascript
-module.exports = {
-  tile: null,
-
-  consumeTitleBar(titleBar) {
-    // Create your element
-    const element = document.createElement("div");
-    element.innerHTML = "<button>My Button</button>";
-
-    // Add to title bar (lower priority = appears first)
-    this.tile = titleBar.addItem({ item: element, priority: 100 });
-  },
-
-  deactivate() {
-    this.tile?.destroy();
-  },
-};
-```
-
-- `addItem({ item, priority })`: adds an element to the control tiles area. `item` is a DOM element, `priority` determines order (lower = left, higher = right). Returns a `Tile` object with `getItem()`, `getPriority()`, and `destroy()` methods.
-- `getTiles()`: returns an array of all current tiles.
-
-The service does not apply any styles to your elements. You are responsible for styling your own elements in your package's stylesheet. The container uses `display: flex` with `align-items: center`.
-
 ## Customization
 
 The style can be adjusted according to user preferences in the `styles.less` file:
@@ -153,17 +109,49 @@ The style can be adjusted according to user preferences in the `styles.less` fil
 }
 ```
 
-## Note for `one-light-ui` and `one-dark-ui`
+## Provided Service `title-bar`
 
-This built-in theme has a CSS class that may not produce the best appearance for the title-bar. To restore the default package style, add the following code to your `styles.less` file:
+Allows other packages to add custom elements to the control area (left of window buttons).
 
-```less
-@import "ui-variables";
-.title-bar {
-  height: var(--title-bar-height);
-  border-bottom: 1px solid @tool-panel-border-color;
+In your `package.json`:
+
+```json
+{
+  "consumedServices": {
+    "title-bar": {
+      "versions": {
+        "^1.0.0": "consumeTitleBar"
+      }
+    }
+  }
 }
 ```
+
+In your main module:
+
+```javascript
+module.exports = {
+  tile: null,
+
+  consumeTitleBar(titleBar) {
+    // Create your element
+    const element = document.createElement("div");
+    element.innerHTML = "<button>My Button</button>";
+
+    // Add to title bar (lower priority = appears first)
+    this.tile = titleBar.addItem({ item: element, priority: 100 });
+  },
+
+  deactivate() {
+    this.tile?.destroy();
+  },
+};
+```
+
+- `addItem({ item, priority })`: adds an element to the control tiles area. `item` is a DOM element, `priority` determines order (lower = left, higher = right). Returns a `Tile` object with `getItem()`, `getPriority()`, and `destroy()` methods.
+- `getTiles()`: returns an array of all current tiles.
+
+The service does not apply any styles to your elements. You are responsible for styling your own elements in your package's stylesheet. The container uses `display: flex` with `align-items: center`.
 
 ## Contributing
 
